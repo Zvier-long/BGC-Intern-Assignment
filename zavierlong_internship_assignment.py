@@ -115,3 +115,19 @@ top10_exposure = top10_exposure.reset_index(drop = True)
 
 #export to CSV (w/o index column)
 top10_exposure.to_csv("answer1.csv", index=False)
+
+#Part 6: Which positions do not have any prices in last 3 days? 
+#Note: To restate, the original transactions and prices files were misaligned..
+#none of the sec_ids in transactions appeared in the prices file. 
+#Because exposure depends on matching prices per security, it is impossible to compute exposure using the original datasets. 
+#To demonstrate working code, we replaced prices with a dummy set where each sec_id from transactions has a corresponding price.
+#As a result, all positions now have a corresponding price, so no positions are missing prices.
+#This means the resulting answer2.csv will be empty (only headers), which is correct given the adjustments
+
+#Regardless..
+#the correct method for filtering the data and outputting it to a csv file 
+#is given below, this would work if the prices were real. 
+positions_no_price = positions_MV[positions_MV["px_last"].isna()]
+positions_no_price.to_csv("answer2.csv", index=False)
+
+
